@@ -46,7 +46,7 @@ console.log("url", url);
 			existingChecks[check.name] = check;
 		});
 
-console.log("existingChecks", existingChecks);
+console.log("existingChecks", JSON.stringify(existingChecks, null, 4));
 
 		function ensureChecksProvisioned(serviceId, callback) {
 

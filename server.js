@@ -85,6 +85,13 @@ console.log("Ensure check '" + id + "' is provisioned for service '" + serviceId
 				type : (optional) type of check (auto|http|https|udp)
 				*/
 
+				if (!checkConfig.alertTreshold) {
+					checkConfig.alertTreshold = 3;
+				}
+				if (!checkConfig.maxTime) {
+					checkConfig.maxTime = 5000;
+				}
+
 				console.log("url", url, checkConfig);
 
 				var method = null;

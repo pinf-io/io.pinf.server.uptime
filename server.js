@@ -11,13 +11,17 @@ var pioConfig = JSON.parse(FS.readFileSync(PATH.join(__dirname, "../.pio.json"),
 
 var config = FS.readFileSync(PATH.join(__dirname, "config", "default.tpl.yaml"), "utf8");
 config = config.replace(/%PORT%/g, process.env.PORT);
-
-config = config.replace(/%SMTP_HOST%/g, pioConfig.config.alert.smtp.host);
-config = config.replace(/%SMTP_USER%/g, pioConfig.config.alert.smtp.user);
-config = config.replace(/%SMTP_PASS%/g, pioConfig.config.alert.smtp.pass);
-config = config.replace(/%SMTP_FROM%/g, pioConfig.config.alert.smtp.from);
-config = config.replace(/%SMTP_TO%/g, pioConfig.config.alert.smtp.to);
-
+if (
+	pioConfig.config &&
+	pioConfig.config.alert &&
+	pioConfig.config.alert.smtp
+) {
+	config = config.replace(/%SMTP_HOST%/g, pioConfig.config.alert.smtp.host);
+	config = config.replace(/%SMTP_USER%/g, pioConfig.config.alert.smtp.user);
+	config = config.replace(/%SMTP_PASS%/g, pioConfig.config.alert.smtp.pass);
+	config = config.replace(/%SMTP_FROM%/g, pioConfig.config.alert.smtp.from);
+	config = config.replace(/%SMTP_TO%/g, pioConfig.config.alert.smtp.to);
+}
 FS.writeFileSync(PATH.join(__dirname, "config", "default.yaml"), config, "utf8");
 // NOTE: Config is taken from `./config/*`.
 
